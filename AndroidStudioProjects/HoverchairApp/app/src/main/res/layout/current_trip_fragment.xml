@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|bottom"
+    android:background="@color/colorPrimary">
+
+
+    <TextView
+        android:id="@+id/currDistanceTxt"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:gravity="center_horizontal"
+        android:text="@string/curr_travel_time"
+        android:textColor="@color/csTextColor"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintBottom_toTopOf="@+id/currTravelTimeTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
+
+    <TextView
+        android:id="@+id/CurrAverageSpeedTxt"
+        android:layout_width="195dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/curr_avg_speed"
+        android:textColor="@color/csTextColor"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintBottom_toTopOf="@+id/currMapTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.514" />
+
+    <TextView
+        android:id="@+id/currTravelTimeTxt"
+        android:layout_width="169dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/curr_distance"
+        android:textColor="@color/csTextColor"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.623" />
+
+    <TextView
+        android:id="@+id/currMapTxt"
+        android:layout_width="120dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/curr_view_map"
+        android:textColor="@color/csTextColor"
+        android:textSize="@dimen/small_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.623" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id = "@+id/cs" android:title = "Chair Status" android:icon="@drawable/cs_icon"/>
+    <item android:id = "@+id/map" android:title = "Map" android:icon="@drawable/map_icon"/>
+    <item android:id = "@+id/notifications" android:title = "Notifications" android:icon="@drawable/notification_icon"/>
+    <item android:id = "@+id/stngs" android:title = "Settings" android:icon="@drawable/settings_icon"/>
+    <item android:id = "@+id/logout" android:title = "Log Out" android:icon="@drawable/logout_icon"/>
+</menu>

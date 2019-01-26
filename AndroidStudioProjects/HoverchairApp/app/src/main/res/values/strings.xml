@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">HoverchairApp</string>
+    <string name="chair_status">Chair Status</string>
+    <string name="curr_distance">Distance</string>
+    <string name="curr_travel_time">Travel Time</string>
+    <string name="curr_avg_speed">Average Speed</string>
+    <string name="curr_view_map">View Map</string>
+    <string name="cs_battery_charge">150 mi</string>
+    <string name="cs_self_balance">Self-Balance</string>
+    <string name="login_button_text">Log In</string>
+    <string name="login_hint">Username/Email</string>
+    <string name="password_hint">Password</string>
+</resources>
