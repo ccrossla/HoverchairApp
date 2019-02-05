@@ -1,7 +1,12 @@
 package com.example.carolinecrossland.hoverchairapp;
 
+import android.app.NotificationChannel;
+import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +26,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.*;
 
+//added
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout constraintlayout;
     private ViewPager viewpager;
     private Switch selfBalanceSwitch;
+
+    //Here
+    private Context mContext;
+    private NotificationManager mNotificationManager;
+    private NotificationCompat.Builder mBuilder;
 
     ImageView battery;
     Handler handler;
@@ -41,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     ImageView image;
     static ProgressDialog locate;
     static int p = 0;
+
+
+    //Here
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612; //phone needs id to keep track of all notif
+
 
     private ServiceConnection sc = new ServiceConnection() {
         @Override
@@ -111,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
         start = findViewById(R.id.start);
         battery = findViewById(R.id.battery);
         handler = new Handler();
+
+
+        //Here
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true); //need this to make notification go away
+
 
         runnable = new Runnable() {
             @Override
@@ -220,4 +247,43 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = alertDialogBuilder.create();
         alert.show();
     }
+
+
+    //Here
+    public void notifyMe(View view){
+
+        //Build the notification
+        notification.setSmallIcon(R.drawable.notification_icon);
+       // notification.setTicker("This is the ticker"); //text that shows on status bar
+        notification.setWhen(System.currentTimeMillis()); //when you get text or whatever
+        notification.setContentTitle("Here is the title");
+        notification.setContentText("I am the body text of notification");
+
+        //what happens when user clicks on notification
+        Intent intent = new Intent(this, MainActivity.class); //sends them to app
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT); //gives phone access to intent's inner app
+        notification.setContentIntent(pendingIntent);
+
+        //send out the notification
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueID, notification.build()); //parameters are id and notification itself
+
+        //Create channel
+        String channelId = "some_channel";
+        CharSequence channelName = "Name";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+        }
+
+        //trying something
+        NoticationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId);
+
+    }
+
+
 }
