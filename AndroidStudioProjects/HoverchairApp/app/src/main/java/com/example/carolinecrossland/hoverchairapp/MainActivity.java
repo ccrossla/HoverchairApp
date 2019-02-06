@@ -1,5 +1,6 @@
 package com.example.carolinecrossland.hoverchairapp;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -202,12 +203,12 @@ public class MainActivity extends AppCompatActivity {
         tablayout.setupWithViewPager(viewpager);
     }
 
-    public float batteryLevel(){
+    public float batteryLevel() {
         Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
 
-        if(level == -1 || scale == -1){
+        if (level == -1 || scale == -1) {
             return 50.0f;
         }
 
@@ -250,19 +251,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Here
-    public void notifyMe(View view){
+    public void notifyMe(View view) {
 
         //Build the notification
-        notification.setSmallIcon(R.drawable.notification_icon);
-       // notification.setTicker("This is the ticker"); //text that shows on status bar
-        notification.setWhen(System.currentTimeMillis()); //when you get text or whatever
-        notification.setContentTitle("Here is the title");
-        notification.setContentText("I am the body text of notification");
+//        notification.setSmallIcon(R.drawable.notification_icon);
+//       // notification.setTicker("This is the ticker"); //text that shows on status bar
+//        notification.setWhen(System.currentTimeMillis()); //when you get text or whatever
+//        notification.setContentTitle("Here is the title");
+//        notification.setContentText("I am the body text of notification");
 
         //what happens when user clicks on notification
         Intent intent = new Intent(this, MainActivity.class); //sends them to app
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0, intent, PendingIntent.FLAG_UPDATE_CURRENT); //gives phone access to intent's inner app
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT); //gives phone access to intent's inner app
         notification.setContentIntent(pendingIntent);
+
+        //medium states that this is how to make channel
 
         //send out the notification
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -273,17 +276,29 @@ public class MainActivity extends AppCompatActivity {
         CharSequence channelName = "Name";
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //trying something
+        //NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        int notifyId = 1;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
+            notificationChannel.enableLights(true);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
 
+            Notification notification = new Notification.Builder(MainActivity.this)
+                    .setContentTitle("Some Message")
+                    .setContentText("You've received new messages")
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setChannelId(channelId)
+                    .build();
+
+
+            notificationManager.notify(notifyId, notification);
+
         }
 
-        //trying something
-        NoticationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId);
-
     }
-
-
 }
