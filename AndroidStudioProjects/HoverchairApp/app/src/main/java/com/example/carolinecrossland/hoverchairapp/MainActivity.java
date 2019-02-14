@@ -250,56 +250,12 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
+    public void testNotifyMe(View view){
+        notifyMe(view, "meesooge", "teetle");
+    }
 
     //Here
-    public void notifyMe(View view) {
-
-//        //Build the notification
-////        notification.setSmallIcon(R.drawable.notification_icon);
-////       // notification.setTicker("This is the ticker"); //text that shows on status bar
-////        notification.setWhen(System.currentTimeMillis()); //when you get text or whatever
-////        notification.setContentTitle("Here is the title");
-////        notification.setContentText("I am the body text of notification");
-//
-//        //what happens when user clicks on notification
-//        Intent intent = new Intent(this, MainActivity.class); //sends them to app
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT); //gives phone access to intent's inner app
-//        notification.setContentIntent(pendingIntent);
-//
-//        //medium states that this is how to make channel
-//
-//        //send out the notification
-//        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        nm.notify(uniqueID, notification.build()); //parameters are id and notification itself
-//
-//        //Create channel
-//        String channelId = "some_channel";
-//        CharSequence channelName = "Name";
-//        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-//
-//        //trying something
-//        //NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        int notifyId = 1;
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
-//            notificationChannel.enableLights(true);
-//            notificationChannel.enableVibration(true);
-//            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-//            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-//            notificationManager.createNotificationChannel(notificationChannel);
-//
-//            Notification notification = new Notification.Builder(MainActivity.this)
-//                    .setContentTitle("Some Message")
-//                    .setContentText("You've received new messages")
-//                    .setSmallIcon(R.drawable.notification_icon)
-//                    .setChannelId(channelId)
-//                    .build();
-//
-//
-//            notificationManager.notify(notifyId, notification);
-//
-//        }
+    public void notifyMe(View view, String message, String title) {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -318,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
 
             Notification notification = new Notification.Builder(MainActivity.this)
-                    .setContentTitle("Some Message")
-                    .setContentText("You've recieved new messages!")
+                    .setContentTitle(message)
+                    .setContentText(title)
                     .setSmallIcon(R.drawable.notification_icon)
                     .setChannelId(channelId)
                     .build();

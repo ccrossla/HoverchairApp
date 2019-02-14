@@ -126,8 +126,8 @@
                 android:id="@+id/notifybtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="notifyMe"
-                android:text="Notify Me"
+                android:onClick="testNotifyMe"
+                android:text="Notify"
                 tools:layout_editor_absoluteX="136dp"
                 tools:layout_editor_absoluteY="278dp" />
         </android.support.constraint.ConstraintLayout>
