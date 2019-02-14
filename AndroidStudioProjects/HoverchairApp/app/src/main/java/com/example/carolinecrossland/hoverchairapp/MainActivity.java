@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView battery;
     Handler handler;
     Runnable runnable;
-    LocationService myService;
     static boolean status;
     LocationManager locationManager;
     static TextView dist, time, speed;
@@ -41,62 +40,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView image;
     static ProgressDialog locate;
     static int p = 0;
-
-    private ServiceConnection sc = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            LocationService.LocalBinder binder = (LocationService.LocalBinder) service;
-            myService = binder.getService();
-            status = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            status = false;
-        }
-    };
-
-    void bindService() {
-        if (status == true)
-            return;
-        Intent i = new Intent(getApplicationContext(), LocationService.class);
-        bindService(i, sc, BIND_AUTO_CREATE);
-        status = true;
-        startTime = System.currentTimeMillis();
-    }
-
-    void unbindService() {
-        if (status == false)
-            return;
-        Intent i = new Intent(getApplicationContext(), LocationService.class);
-        unbindService(sc);
-        status = false;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (status == true)
-            unbindService();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (status == false)
-            super.onBackPressed();
-        else
-            moveTaskToBack(true);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,36 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(runnable, 0);
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //The method below checks if Location is enabled on device or not. If not, then an alert dialog box appears with option
-                //to enable gps.
-                checkGps();
-                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                    return;
-                }
-
-
-                if (status == false)
-                    //Here, the Location Service gets bound and the GPS Speedometer gets Active.
-                    bindService();
-                locate = new ProgressDialog(MainActivity.this);
-                locate.setIndeterminate(true);
-                locate.setCancelable(false);
-                locate.setMessage("Getting Location...");
-                locate.show();
-                start.setVisibility(View.GONE);
-                pause.setVisibility(View.VISIBLE);
-                pause.setText("Pause");
-                stop.setVisibility(View.VISIBLE);
-            }
-        });
-
 
         //adding fragments
         adapter.addFragment(new FragmentCurrentTrip(), "Today");
@@ -185,39 +98,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return ((float) level / (float) scale) * 100.0f;
-    }
-
-    //This method leads you to the alert dialog box.
-    void checkGps() {
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-
-            showGPSDisabledAlertToUser();
-        }
-    }
-
-    //This method configures the Alert Dialog box.
-    private void showGPSDisabledAlertToUser() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Enable GPS to use application")
-                .setCancelable(false)
-                .setPositiveButton("Enable GPS",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent callGPSSettingIntent = new Intent(
-                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(callGPSSettingIntent);
-                            }
-                        });
-        alertDialogBuilder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = alertDialogBuilder.create();
-        alert.show();
     }
 }
