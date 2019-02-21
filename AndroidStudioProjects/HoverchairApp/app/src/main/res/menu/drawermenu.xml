@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bt"
+        android:icon="@drawable/bluetooth_icon"
+        android:title="Bluetooth Connection" />
     <item android:id = "@+id/cs" android:title = "Chair Status" android:icon="@drawable/cs_icon"/>
     <item android:id = "@+id/map" android:title = "Map" android:icon="@drawable/map_icon"/>
     <item android:id = "@+id/notifications" android:title = "Notifications" android:icon="@drawable/notification_icon"/>
