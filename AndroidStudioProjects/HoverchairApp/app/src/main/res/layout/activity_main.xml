@@ -9,14 +9,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu = "@menu/drawermenu"
-        android:layout_gravity = "start">
-    </android.support.design.widget.NavigationView>
-
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -160,5 +152,13 @@
     </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu = "@menu/drawermenu"
+        android:layout_gravity = "start">
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

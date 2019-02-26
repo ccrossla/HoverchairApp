@@ -2,9 +2,13 @@ package com.example.carolinecrossland.hoverchairapp;
 
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,15 +27,22 @@ import android.os.*;
 import android.support.design.widget.NavigationView;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBarDrawerToggle;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+public class MainActivity extends AppCompatActivity {
 
     private TabLayout tablayout;
     private ConstraintLayout constraintlayout;
     private ViewPager viewpager;
     private Switch selfBalanceSwitch;
-    private DrawerLayout drawerLayout;
+
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
 
     ImageView battery;
     Handler handler;
@@ -103,29 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    //Nav drawer
-    private void setNavigationViewListener() {
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        System.out.println("ITEM ID :  "+item.getItemId());
-        switch (item.getItemId()) {
-
-            case R.id.bt: {
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
-                break;
-            }
-        }
-        //close navigation drawer
-        drawerLayout.closeDrawers();
-        return true;
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,30 +181,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         //navigation drawer setup
-        setNavigationViewListener();
-
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem menuItem) {
-                    // set item as selected to persist highlight
-                    //menuItem.setChecked(true);
-                    System.out.println("ID: " + menuItem.getItemId());
-                    switch(menuItem.getItemId()) {
-                        case R.id.bt: {
-                            drawerLayout.closeDrawers();
-                            Intent intent = new Intent(MainActivity.this, Login.class);
-                            startActivity(intent);
-                        }
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                System.out.println("DRAWER STATE CHANGED: "+newState);
+            }
 
-                    }
-                    return true;
+        });
 
-                }
-            });
-
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
 
 
 
@@ -230,6 +211,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         viewpager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpager);
     }
+
+
+
+
+
+    public void selectDrawerItem(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.bt:
+                Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     public float batteryLevel(){
         Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
