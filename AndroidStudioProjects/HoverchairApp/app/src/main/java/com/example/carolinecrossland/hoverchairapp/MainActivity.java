@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
@@ -263,6 +264,8 @@ public class MainActivity extends AppCompatActivity {
         String channelId = "some_channel_id";
         CharSequence channelName = "Some Channel";
 
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://hoverchair.com/main"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -278,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
                     .setContentText(title)
                     .setSmallIcon(R.drawable.notification_icon)
                     .setChannelId(channelId)
+                    .setContentIntent(pendingIntent)
                     .build();
 
             notificationManager.notify(notifyId, notification);
