@@ -217,9 +217,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void selectDrawerItem(MenuItem menuItem) {
+        Intent intent;
         switch (menuItem.getItemId()) {
             case R.id.bt:
-                Intent intent = new Intent(MainActivity.this, ScanActivity.class);
+                intent = new Intent(MainActivity.this, ScanActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.drive:
+                intent = new Intent(MainActivity.this, Drive.class);
                 startActivity(intent);
                 break;
             default:
