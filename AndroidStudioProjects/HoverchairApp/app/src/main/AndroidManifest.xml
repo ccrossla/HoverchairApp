@@ -30,9 +30,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="hoverchair.com"
-                    android:pathPattern="/main" />
+                    android:pathPattern="/main"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
 
@@ -43,6 +43,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".MainActivity" />
+        <activity android:name=".Notification_Screen"></activity>
     </application>
 
 </manifest>

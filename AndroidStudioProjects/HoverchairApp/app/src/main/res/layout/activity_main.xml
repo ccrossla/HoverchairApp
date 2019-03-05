@@ -128,8 +128,21 @@
                 android:layout_height="wrap_content"
                 android:onClick="testNotifyMe"
                 android:text="Notify"
-                tools:layout_editor_absoluteX="136dp"
-                tools:layout_editor_absoluteY="278dp" />
+                tools:layout_editor_absoluteX="7dp"
+                tools:layout_editor_absoluteY="64dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.1"
+
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notifbtn"
+                android:text="Notification Page"
+                />
         </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.TabLayout

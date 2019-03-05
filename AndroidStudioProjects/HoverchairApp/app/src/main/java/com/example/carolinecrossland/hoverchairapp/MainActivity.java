@@ -37,6 +37,8 @@ import android.app.PendingIntent;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button notifButton;
+
     private TabLayout tablayout;
     private ConstraintLayout constraintlayout;
     private ViewPager viewpager;
@@ -60,8 +62,19 @@ public class MainActivity extends AppCompatActivity {
     static ProgressDialog locate;
     static int p = 0;
 
+    //test pass variables
+    private static String message = "mesoog";
+    private static String title = "teetle";
 
-    //Here
+    //methods to get data in other classes
+    public static String getMessage() {
+        return message;
+    }
+
+    public static String getMessTitle() {
+        return title;
+    }
+
     NotificationCompat.Builder notification;
     private static final int uniqueID = 45612; //phone needs id to keep track of all notif
 
@@ -136,8 +149,15 @@ public class MainActivity extends AppCompatActivity {
         battery = findViewById(R.id.battery);
         handler = new Handler();
 
+        notifButton = findViewById(R.id.notifbtn);
+        notifButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, Notification_Screen.class));
+            }
+        });
 
-        //Here
+
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true); //need this to make notification go away
 
@@ -273,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
-            notificationChannel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             notificationManager.createNotificationChannel(notificationChannel);
 
             Notification notification = new Notification.Builder(MainActivity.this)
@@ -287,7 +307,15 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.notify(notifyId, notification);
         }
 
+       String[] notifData = {
+                message,
+                title
+        };
+
 
 
     }
+
 }
+
+
