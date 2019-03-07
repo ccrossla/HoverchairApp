@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,6 +27,8 @@ public class Notification_Screen extends AppCompatActivity {
 
         //get reference of widgets
         final ListView lv = (ListView) findViewById(R.id.lv);
+
+
         final Button btn = (Button) findViewById(R.id.btn);
 
         //List to hold data
@@ -36,6 +39,7 @@ public class Notification_Screen extends AppCompatActivity {
         //List from String of notifs
         final List<String>notifs_list = new ArrayList<String>(Arrays.asList(notifs));
 
+
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, notifs_list);
 
@@ -45,6 +49,14 @@ public class Notification_Screen extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 notifs_list.add(messBody);
+                arrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                notifs_list.remove(position);
                 arrayAdapter.notifyDataSetChanged();
             }
         });

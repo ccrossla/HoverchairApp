@@ -3,4 +3,8 @@
     <dimen name="cs_large_text">25sp</dimen>
     <dimen name="medium_text">18sp</dimen>
     <dimen name="small_text">12sp</dimen>
+
+    //added for notifications page
+    <dimen name = "list_item_padding_sides">16dp</dimen>
+    <dimen name = "list_item_height">80dp</dimen>
 </resources>
