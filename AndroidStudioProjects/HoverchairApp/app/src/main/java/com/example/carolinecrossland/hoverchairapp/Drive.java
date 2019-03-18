@@ -1,61 +1,79 @@
 package com.example.carolinecrossland.hoverchairapp;
-
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.jmedeisis.bugstick.Joystick;
-import com.jmedeisis.bugstick.JoystickListener;
 
 public class Drive extends AppCompatActivity {
 
-    private static final float MAX_BUG_SPEED_DP_PER_S = 300f;
+    public enum Engagement { disengaged, engaged }
+    public enum Mode { directcontrol, selfbalance, zerodegree }
+
+    Engagement engagement = Engagement.disengaged;
+    Mode mode = Mode.directcontrol;
+
+    private static final float MAX_BUG_SPEED_DP_PER_S = 100;
+    private boolean engaged = true;
+
+
+    private SeekBar velocityBar;
+    private SeekBar rotationBar;
+    int rotationMin = 0;
+    int rotationMax = 100;
+    int velocityMin = 0;
+    int velocityMax = 100;
+
+    int rotation = 0;
+    int velocity = 0;
+
+    TextView speed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drive);
 
-        final TextView angleView = (TextView) findViewById(R.id.tv_angle);
-        final TextView offsetView = (TextView) findViewById(R.id.tv_offset);
+        rotationBar = findViewById(R.id.turnSeekBar);
+        rotationBar.setMax(rotationMax);
+        rotationBar.setProgress(rotationMax/2);
 
-        final BugView bugView = (BugView) findViewById(R.id.bugview);
+        velocityBar = findViewById(R.id.driveSeekBar);
+        velocityBar.setMax(velocityMax);
+        velocityBar.setProgress(velocityMax/2);
 
-        final String angleNoneString = "0";//getString(R.string.angle_value_none);
-        final String angleValueString = "0";//getString(R.string.angle_value);
-        final String offsetNoneString = "0";//getString(R.string.offset_value_none);
-        final String offsetValueString = "0";//getString(R.string.offset_value);
+        speed = findViewById(R.id.driveSpeedDisplay);
 
-        Joystick joystick = (Joystick) findViewById(R.id.joystick);
-
-        joystick.setJoystickListener(new JoystickListener() {
+        rotationBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onDown() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                rotation = progress;
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                rotationBar.setProgress(rotationMax/2);
+            }
+        });
+
+        velocityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                velocity = progress;
+                speed.setText(Integer.toString(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
-            public void onDrag(float degrees, float offset) {
-                angleView.setText(String.format(angleValueString, degrees));
-                offsetView.setText(String.format(offsetValueString, offset));
-
-                bugView.setVelocity(
-                        (float) Math.cos(degrees * Math.PI / 180f) * offset * MAX_BUG_SPEED_DP_PER_S,
-                        -(float) Math.sin(degrees * Math.PI / 180f) * offset * MAX_BUG_SPEED_DP_PER_S);
-            }
-
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onUp() {
-                angleView.setText(angleNoneString);
-                offsetView.setText(offsetNoneString);
-
-                bugView.setVelocity(0, 0);
-
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                rotationBar.setProgress(rotationMax/2);
             }
         });
     }

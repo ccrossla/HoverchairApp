@@ -97,7 +97,8 @@ public class BugView extends View implements TimeAnimator.TimeListener{
      * Set bug velocity in dips.
      */
     public void setVelocity(float vxDps, float vyDps) {
-        velocity.set(vxDps * density, vyDps * density);
+        velocity.set(vxDps, vyDps);
+        System.out.println(velocity);
     }
 
     @Override
