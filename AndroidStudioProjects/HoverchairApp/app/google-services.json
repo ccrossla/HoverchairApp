@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "378575694500",
+    "firebase_url": "https://trinicorp-89256.firebaseio.com",
+    "project_id": "trinicorp-89256",
+    "storage_bucket": "trinicorp-89256.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378575694500:android:053db3008123af1f",
+        "android_client_info": {
+          "package_name": "com.example.carolinecrossland.hoverchairapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378575694500-m49nkhscfgodkt7nabsebiv11seisa4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOPa0DRZu4rQ4OI7GFpSb6mfTEWUtLOLo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
