@@ -1,5 +1,10 @@
 package com.example.carolinecrossland.hoverchairapp;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,18 +24,18 @@ import me.aflak.bluetooth.DeviceCallback;
 public class ScanActivity extends AppCompatActivity {
 
     Bluetooth bluetooth;
+    BluetoothDevice device;
+
+    BluetoothService mService;
+    boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         bluetooth = MyApp.app().bluetooth();
-        this.bluetooth.onStart();
-        this.bluetooth.setCallbackOnUI(this);
-        this.bluetooth.setBluetoothCallback(bluetoothCallback);
 
         final List<BluetoothDevice> devices = bluetooth.getPairedDevices();
-
 
         //Get list of paired devices
         System.out.println("num paired devices: " + devices.size());
@@ -54,70 +59,51 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("DEVICE NAME: " + pairedListItems.get(i).get("deviceName"));
-                connectToDevice(devices.get(i));
+                device = devices.get(i);
+                startBluetoothService();
             }
         });
     }
 
-    private void connectToDevice(BluetoothDevice device) {
-        bluetooth.onStart();
-        bluetooth.connectToDevice(device);
-        bluetooth.setDeviceCallback(communicationCallback);
-        String isConnected = Boolean.toString(bluetooth.isConnected());
-        System.out.println("isConnected: " + isConnected);
-        if(bluetooth.isConnected()) {
-            bluetooth.send("500");
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            System.out.println("onServiceConnected");
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+            connectToDevice();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+    private void startBluetoothService() {
+        Intent intent = new Intent(this, BluetoothService.class);
+        startService(intent);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+
+    }
+
+    private void connectToDevice() {
+        mService.bindBluetooth(bluetooth, device, this);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (connection != null) {
+            unbindService(connection);
         }
     }
 
-    private BluetoothCallback bluetoothCallback = new BluetoothCallback() {
-        @Override
-        public void onBluetoothTurningOn() {
-
-        }
-
-        @Override
-        public void onBluetoothOn() {
-
-        }
-
-        @Override
-        public void onBluetoothTurningOff() {
-
-        }
-
-        @Override
-        public void onBluetoothOff() {
-        }
-
-        @Override
-        public void onUserDeniedActivation() {
-        }
-    };
-
-    private DeviceCallback communicationCallback = new DeviceCallback() {
-        @Override
-        public void onDeviceConnected(BluetoothDevice device) {
-        }
-
-        @Override
-        public void onDeviceDisconnected(BluetoothDevice device, String message) {
-        }
-
-        @Override
-        public void onMessage(String message) {
-
-        }
-
-        @Override
-        public void onError(String message) {
-
-        }
-
-        @Override
-        public void onConnectError(final BluetoothDevice device, String message) {
-            System.out.println("failed to connect");
-        }
-    };
 }
 

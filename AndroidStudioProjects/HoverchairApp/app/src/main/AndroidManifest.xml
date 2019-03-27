@@ -40,6 +40,8 @@
 
         <activity android:name=".Drive" />
 
+        <service android:name=".BluetoothService" />
+
 
     </application>
 

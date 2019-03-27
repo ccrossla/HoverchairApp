@@ -86,13 +86,5 @@
             android:layout_alignEnd="@+id/activity_scan_state" />
     </RelativeLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu = "@menu/drawermenu"
-        android:layout_gravity = "start">
-    </android.support.design.widget.NavigationView>
-
 </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
