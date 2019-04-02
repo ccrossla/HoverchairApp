@@ -1,139 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".Drive"
-    android:background="@color/colorAccent"
-    android:orientation="vertical"
-    >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".5"
-        android:gravity="center"
-        >
-        <TextView
-            android:id="@+id/driveSpeedDisplay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="64dp"
-            android:gravity="right"
-            />
-
-        <TextView
-            android:id="@+id/mphTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/driveSpeedDisplay"
-            android:text="mph"
-            android:textSize="32dp"
-        />
-        <TextView
-            android:id="@+id/turnTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/driveSpeedDisplay"
-            android:layout_marginLeft="75dp"
-            android:text="0°"
-            android:textSize="64dp"
-            />
-
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:padding="16dp"
-        tools:context=".Drive"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-
-
-        <ToggleButton
-            android:id="@+id/toggleEngagement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="ToggleButton" />
-
-        <RadioGroup
-            android:id="@+id/radioControlModes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioDirectControl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DC"
-                android:buttonTint="@color/colorPrimaryDark"
-                />
-            <RadioButton
-                android:id="@+id/radioSelfBalance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SB"
-                android:buttonTint="@color/colorPrimaryDark"
-                />
-            <RadioButton
-                android:id="@+id/radio0DegreeTurn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0°T"
-                android:buttonTint="@color/colorPrimaryDark"
-                />
-
-         </RadioGroup>
-
-    </LinearLayout>
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".4"
+        android:layout_height="match_parent"
         android:padding="16dp"
         tools:context=".Drive"
-        android:background="@android:color/transparent"
-        android:orientation="horizontal"
-        android:gravity="center"
-    >
-
-        <SeekBar
-            android:id="@+id/driveSeekBar"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/driveSpeedDisplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="64dp"
+                android:gravity="right"
+                />
 
-            android:progress="50"
-            android:progressDrawable="@drawable/drive_bar"
-            android:thumb="@drawable/thumb"
-            android:thumbTint="@color/colorPrimaryDark"
-            android:rotation="270"
+            <TextView
+                android:id="@+id/mphTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/driveSpeedDisplay"
+                android:text="mph"
+                android:textSize="32dp"
             />
+            <TextView
+                android:id="@+id/turnTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/driveSpeedDisplay"
+                android:layout_marginLeft="75dp"
+                android:text="0°"
+                android:textSize="64dp"
+                />
 
-        <SeekBar
-            android:id="@+id/turnSeekBar"
+        </RelativeLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
+            android:layout_weight=".1"
+            android:padding="16dp"
+            tools:context=".Drive"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
 
-            android:progress="50"
-            android:progressDrawable="@drawable/drive_bar"
-            android:thumb="@drawable/thumb"
-            android:thumbTint="@color/colorPrimaryDark" />
+
+            <ToggleButton
+                android:id="@+id/toggleEngagement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:text="ToggleButton" />
+
+            <RadioGroup
+                android:id="@+id/radioControlModes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioDirectControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DC"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    />
+                <RadioButton
+                    android:id="@+id/radioSelfBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SB"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    />
+                <RadioButton
+                    android:id="@+id/radio0DegreeTurn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0°T"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    />
+
+             </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".4"
+            android:padding="16dp"
+            tools:context=".Drive"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:gravity="center"
+        >
+
+            <SeekBar
+                android:id="@+id/driveSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+
+                android:progress="50"
+                android:progressDrawable="@drawable/drive_bar"
+                android:thumb="@drawable/thumb"
+                android:thumbTint="@color/colorPrimaryDark"
+                android:rotation="270"
+                />
+
+            <SeekBar
+                android:id="@+id/turnSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+
+                android:progress="50"
+                android:progressDrawable="@drawable/drive_bar"
+                android:thumb="@drawable/thumb"
+                android:thumbTint="@color/colorPrimaryDark" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu = "@menu/drawermenu"
+        android:layout_gravity = "start">
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

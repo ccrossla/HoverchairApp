@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.bluetooth.*;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,6 +30,8 @@ public class ScanActivity extends AppCompatActivity {
 
     BluetoothService mService;
     boolean mBound = false;
+
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,17 @@ public class ScanActivity extends AppCompatActivity {
                 System.out.println("DEVICE NAME: " + pairedListItems.get(i).get("deviceName"));
                 device = devices.get(i);
                 startBluetoothService();
+            }
+        });
+
+        //nav view listener
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                Intent intent = MenuManager.selectDrawerItem(ScanActivity.this, menuItem);
+                startActivity(intent);
+                return true;
             }
         });
     }

@@ -181,20 +181,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //navigation drawer setup
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                System.out.println("DRAWER STATE CHANGED: "+newState);
-            }
-
-        });
-
+//        drawerLayout = findViewById(R.id.drawer_layout);
+//        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+//            @Override
+//            public void onDrawerStateChanged(int newState) {
+//                System.out.println("DRAWER STATE CHANGED: "+newState);
+//            }
+//
+//        });
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                selectDrawerItem(menuItem);
+//                selectDrawerItem(menuItem);
+                Intent intent = MenuManager.selectDrawerItem(MainActivity.this, menuItem);
+                startActivity(intent);
                 return true;
             }
         });

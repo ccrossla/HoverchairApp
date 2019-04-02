@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,6 +44,7 @@ public class Drive extends AppCompatActivity {
 
     RadioGroup radioGroup;
     ToggleButton toggleButton;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +134,17 @@ public class Drive extends AppCompatActivity {
                     engaged = false;
                 }
                 sendData();
+            }
+        });
+
+        //nav view listener
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                Intent intent = MenuManager.selectDrawerItem(Drive.this, menuItem);
+                startActivity(intent);
+                return true;
             }
         });
 
