@@ -34,7 +34,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     Button notifButton;
