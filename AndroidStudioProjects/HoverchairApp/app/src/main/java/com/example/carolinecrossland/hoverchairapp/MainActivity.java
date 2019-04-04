@@ -121,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
         tablayout = findViewById(R.id.tab_layout_cs);
         constraintlayout = findViewById(R.id.constraint_layout_cs);
         viewpager = findViewById(R.id.view_pager_cs);
-        selfBalanceSwitch = findViewById(R.id.self_ballance_switch);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        speed = findViewById(R.id.speedText);
         start = findViewById(R.id.start);
         battery = findViewById(R.id.battery);
         handler = new Handler();
@@ -150,35 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
         handler.postDelayed(runnable, 0);
 
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //The method below checks if Location is enabled on device or not. If not, then an alert dialog box appears with option
-                //to enable gps.
-                checkGps();
-                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                    return;
-                }
-
-
-                if (status == false)
-                    //Here, the Location Service gets bound and the GPS Speedometer gets Active.
-                    bindService();
-                locate = new ProgressDialog(MainActivity.this);
-                locate.setIndeterminate(true);
-                locate.setCancelable(false);
-                locate.setMessage("Getting Location...");
-                locate.show();
-                start.setVisibility(View.GONE);
-                pause.setVisibility(View.VISIBLE);
-                pause.setText("Pause");
-                stop.setVisibility(View.VISIBLE);
-            }
-        });
 
         //navigation drawer setup
 //        drawerLayout = findViewById(R.id.drawer_layout);
