@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 public class Login extends AppCompatActivity {
     Button loginBtn;
+    Button createBtn;
     EditText login_email, login_password;
 
     //added for login
@@ -28,6 +29,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginBtn = findViewById(R.id.login_button);
+        createBtn = findViewById(R.id.create_button);
         login_email = (EditText)findViewById(R.id.login_email);
         login_password = (EditText)findViewById(R.id.login_password);
 
@@ -46,6 +48,20 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+        createBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailText = login_email.getText().toString();
+                passwordText = login_password.getText().toString();
+                if(!cred.containsKey(emailText)){
+                    addCred(emailText, passwordText);
+                    login_email.getText().clear();
+                    login_password.getText().clear();
+                }
+            }
+        });
+
     }
 
     public Map<String, String> addCred(String username, String password) {
