@@ -40,7 +40,6 @@ public class Drive extends AppCompatActivity {
     int velocity = 0;
 
     TextView speed;
-    TextView turn;
 
     RadioGroup radioGroup;
     ToggleButton toggleButton;
@@ -64,13 +63,11 @@ public class Drive extends AppCompatActivity {
         velocityBar.setProgress(velocityMax/2);
 
         speed = findViewById(R.id.driveSpeedDisplay);
-        turn = findViewById(R.id.turnTextView);
 
         rotationBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 rotation = progress - rotationMax/2;
-                turn.setText(Integer.toString(rotation) + "°");
                 sendData();
             }
             @Override
@@ -86,7 +83,7 @@ public class Drive extends AppCompatActivity {
         velocityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                velocity = progress - velocityMax/2;
+                velocity = Math.abs(progress - velocityMax/2);
                 speed.setText(Integer.toString(velocity));
                 sendData();
             }

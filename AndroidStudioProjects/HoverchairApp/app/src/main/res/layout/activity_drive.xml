@@ -16,94 +16,99 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         tools:context=".Drive"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         android:orientation="vertical"
         >
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:gravity="center"
-            >
+            android:layout_weight=".4"
+            android:background="@drawable/custom_border"
+            android:gravity="center">
+
             <TextView
                 android:id="@+id/driveSpeedDisplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="64dp"
                 android:gravity="right"
-                />
-
-            <TextView
-                android:id="@+id/mphTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/driveSpeedDisplay"
-                android:text="mph"
-                android:textSize="32dp"
-            />
-            <TextView
-                android:id="@+id/turnTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/driveSpeedDisplay"
-                android:layout_marginLeft="75dp"
-                android:text="0°"
-                android:textSize="64dp"
-                />
+                android:text="0"
+                android:textColor="@color/csTextColor"
+                android:textSize="124dp" />
 
         </RelativeLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".1"
-            android:padding="16dp"
-            tools:context=".Drive"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal"
             android:gravity="center"
-            >
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@android:color/transparent"
+            tools:context=".Drive">
 
 
             <ToggleButton
                 android:id="@+id/toggleEngagement"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="ToggleButton" />
+                android:layout_height="match_parent"
+                android:layout_weight=".3"
+                android:background="@drawable/custom_border"
+                android:text="ToggleButton"
+                android:textColor="@color/csTextColor"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:text=""
+                android:visibility="invisible"
+                />
 
             <RadioGroup
                 android:id="@+id/radioControlModes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_weight=".6"
+                android:background="@drawable/custom_border"
+                android:maxLines="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
 
                 <RadioButton
                     android:id="@+id/radioDirectControl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/csTextColor"
                     android:text="DC"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    />
+                    android:textSize="16dp"
+                    android:textColor="@color/csTextColor" />
+
                 <RadioButton
                     android:id="@+id/radioSelfBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/csTextColor"
                     android:text="SB"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    />
+                    android:textSize="16dp"
+                    android:textColor="@color/csTextColor" />
+
                 <RadioButton
                     android:id="@+id/radio0DegreeTurn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:buttonTint="@color/csTextColor"
+                    android:maxLines="1"
                     android:text="0°T"
-                    android:buttonTint="@color/colorPrimaryDark"
-                    />
+                    android:textSize="16dp"
+                    android:textColor="@color/csTextColor" />
 
-             </RadioGroup>
+            </RadioGroup>
 
         </LinearLayout>
 
@@ -115,12 +120,13 @@
             android:layout_weight=".4"
             android:padding="16dp"
             tools:context=".Drive"
-            android:background="@android:color/transparent"
             android:orientation="horizontal"
             android:gravity="center"
+            android:background="@drawable/custom_border"
         >
 
             <SeekBar
+                android:background="@drawable/custom_border"
                 android:id="@+id/driveSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,11 +135,12 @@
                 android:progress="50"
                 android:progressDrawable="@drawable/drive_bar"
                 android:thumb="@drawable/thumb"
-                android:thumbTint="@color/colorPrimaryDark"
+                android:thumbTint="@color/colorAccent"
                 android:rotation="270"
                 />
 
             <SeekBar
+                android:background="@drawable/custom_border"
                 android:id="@+id/turnSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,7 +149,7 @@
                 android:progress="50"
                 android:progressDrawable="@drawable/drive_bar"
                 android:thumb="@drawable/thumb"
-                android:thumbTint="@color/colorPrimaryDark" />
+                android:thumbTint="@color/colorAccent" />
 
         </LinearLayout>
 

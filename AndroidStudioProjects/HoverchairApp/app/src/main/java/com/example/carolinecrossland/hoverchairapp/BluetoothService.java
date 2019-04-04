@@ -16,8 +16,8 @@ import me.aflak.bluetooth.DeviceCallback;
 public class BluetoothService extends Service {
 
     private final IBinder binder = new LocalBinder();
-    public static Bluetooth bluetooth;
-    public static BluetoothDevice device;
+    public static Bluetooth bluetooth = null;
+    public static BluetoothDevice device = null;
 
     public class LocalBinder extends Binder {
         BluetoothService getService() {
@@ -52,8 +52,10 @@ public class BluetoothService extends Service {
     }
 
     public void send(String message) {
-        System.out.println(message);
-        bluetooth.send(message);
+        if(device != null && bluetooth.isConnected()) {
+            System.out.println(message);
+            bluetooth.send(message);
+        }
     }
 
     @Override
