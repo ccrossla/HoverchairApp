@@ -16,6 +16,8 @@ public class MenuManager {
             case R.id.drive:
                 intent = new Intent(activity, Drive.class);
                 break;
+            case R.id.notifications:
+                intent = new Intent(activity, Notification.class);
             default:
                 break;
         }
