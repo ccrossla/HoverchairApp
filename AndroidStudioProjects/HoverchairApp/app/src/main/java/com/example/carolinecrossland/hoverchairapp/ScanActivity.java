@@ -12,13 +12,17 @@ import android.os.Bundle;
 import android.bluetooth.*;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
 import me.aflak.bluetooth.Bluetooth;
 import me.aflak.bluetooth.BluetoothCallback;
 import me.aflak.bluetooth.DeviceCallback;
@@ -55,7 +59,24 @@ public class ScanActivity extends AppCompatActivity {
         ListView pairedListView = findViewById(R.id.activity_scan_paired_list);
         String[] from={"idNum","deviceName"};
         int[] to={R.id.deviceName,R.id.deviceName};
-        SimpleAdapter adapter = new SimpleAdapter(this, pairedListItems, R.layout.list_view, from, to);
+
+
+        SimpleAdapter adapter = new SimpleAdapter(this, pairedListItems, R.layout.list_view, from, to) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent){
+//                // Get the Item from ListView
+//                View view = super.getView(position, convertView, parent);
+//
+//                // Initialize a TextView for ListView each Item
+//                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+//
+//                // Set the text color of TextView (ListView Item)
+//                tv.setTextColor(getResources().getColor(R.color.csTextColor));
+//
+//                // Generate ListView Item using TextView
+//                return view;
+//            }
+        };
         pairedListView.setAdapter(adapter);
 
         //perform listView item click event

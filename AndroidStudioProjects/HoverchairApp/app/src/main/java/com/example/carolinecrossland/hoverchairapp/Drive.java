@@ -153,7 +153,7 @@ public class Drive extends AppCompatActivity {
         if(engaged) {
             message += "1";
         } else {
-            message += "0";
+            message += "1";
         }
         //control mode
         if(mode == Mode.directcontrol) {
@@ -163,6 +163,7 @@ public class Drive extends AppCompatActivity {
         } else {
             message += "2";
         }
+        //only matters for 0dt, otherwise 000
         //left and right triggers (velocity)
         if(velocity >= 0) {
             message += String.format("%03d", Math.abs(velocity));
@@ -172,11 +173,11 @@ public class Drive extends AppCompatActivity {
             message += String.format("%03d", Math.abs(velocity));
         }
         //y and x joystick positioning
-        message += "+000";
+        message += "1100";
         if(rotation > 0) {
-            message += "+";
+            message += "1";
         } else {
-            message += "-";
+            message += "0";
         }
         message += String.format("%03d", Math.abs(rotation));
         return message;
@@ -184,6 +185,7 @@ public class Drive extends AppCompatActivity {
 
     private void sendData() {
         String message = constructDataMessage();
+        System.out.println(message);
         mService.send(message);
     }
 
