@@ -12,6 +12,8 @@ import me.aflak.bluetooth.Bluetooth;
 import me.aflak.bluetooth.BluetoothCallback;
 import me.aflak.bluetooth.DeviceCallback;
 
+import static java.lang.Thread.sleep;
+
 
 public class BluetoothService extends Service {
 
@@ -32,23 +34,24 @@ public class BluetoothService extends Service {
         return startId;
     }
 
-    public void bindBluetooth(Bluetooth _bluetooth, BluetoothDevice _device, Activity activity) {
+    public synchronized boolean bindBluetooth(Bluetooth _bluetooth, BluetoothDevice _device, Activity activity) {
         bluetooth = _bluetooth;
         device = _device;
         System.out.println("Binding bluetooth");
-
         bluetooth = MyApp.app().bluetooth();
         this.bluetooth.onStart();
         this.bluetooth.setCallbackOnUI(activity);
         this.bluetooth.setBluetoothCallback(bluetoothCallback);
-//        bluetooth.onStart();
         bluetooth.connectToDevice(device);
         bluetooth.setDeviceCallback(communicationCallback);
-        String isConnected = Boolean.toString(bluetooth.isConnected());
-        while(!bluetooth.isConnected()) {
 
+        try {
+            sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("isConnected: " + isConnected);
+
+        return bluetooth.isConnected();
     }
 
     public void send(String message) {

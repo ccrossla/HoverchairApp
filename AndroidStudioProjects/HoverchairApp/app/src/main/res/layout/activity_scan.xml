@@ -20,52 +20,58 @@
         <RelativeLayout
             android:id="@+id/activity_scan_paired_layout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-
-
+            android:layout_height="50dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_border"
+        >
             <TextView
                 android:id="@+id/activity_scan_connected_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="5dp"
-                android:textSize="16dp"
-                android:gravity="center"
-                android:text="Not Connected"
-                android:background="@drawable/custom_border"
-                />
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/activity_scan_connected_text"
-                tools:context="libraries.ui.scan.view.ScanActivity"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="5dp"
-                android:background="@drawable/custom_border"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:text="Paired Devices:"
-                    />
-                <ListView
-                    android:id="@+id/activity_scan_paired_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/activity_scan_connected_text"
-
-                    />
-            </LinearLayout>
-
+                android:text="Not Connected"
+                android:textSize="16dp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/csTextColor"
+                />
+            <ProgressBar
+                android:id="@+id/btSpinner"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:layout_alignParentRight="true"
+                />
         </RelativeLayout>
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/activity_scan_connected_text"
+            tools:context="libraries.ui.scan.view.ScanActivity"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_weight="8"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/custom_border"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="Paired Devices:"
+                />
+            <ListView
+                android:id="@+id/activity_scan_paired_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_scan_connected_text"
+
+                />
+        </LinearLayout>
 
     </LinearLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

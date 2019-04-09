@@ -15,4 +15,9 @@
         <item name="android:textColor">@color/csTextColor</item>
     </style>
 
+    <style name="ListFont" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/csTextColor</item>
+    </style>
+
 </resources>

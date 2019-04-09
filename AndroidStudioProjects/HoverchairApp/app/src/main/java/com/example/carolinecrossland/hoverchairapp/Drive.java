@@ -26,14 +26,14 @@ public class Drive extends AppCompatActivity {
     Mode mode = Mode.directcontrol;
 
     private static final float MAX_BUG_SPEED_DP_PER_S = 100;
-    private boolean engaged = false;
+    private boolean engaged = true;
 
 
     private SeekBar velocityBar;
     private SeekBar rotationBar;
-    int rotationMin = 0;
+    int rotationMin = -100;
     int rotationMax = 100;
-    int velocityMin = 0;
+    int velocityMin = -100;
     int velocityMax = 100;
 
     int rotation = 0;
@@ -67,7 +67,7 @@ public class Drive extends AppCompatActivity {
         rotationBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                rotation = progress - rotationMax/2;
+                rotation = progress*2 - rotationMin;
                 sendData();
             }
             @Override
@@ -83,8 +83,8 @@ public class Drive extends AppCompatActivity {
         velocityBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                velocity = Math.abs(progress - velocityMax/2);
-                speed.setText(Integer.toString(velocity));
+                velocity = progress*2 + velocityMin;
+                speed.setText(Integer.toString(Math.abs(velocity)));
                 sendData();
             }
 
@@ -153,7 +153,7 @@ public class Drive extends AppCompatActivity {
         if(engaged) {
             message += "1";
         } else {
-            message += "1";
+            message += "0";
         }
         //control mode
         if(mode == Mode.directcontrol) {
@@ -165,15 +165,26 @@ public class Drive extends AppCompatActivity {
         }
         //only matters for 0dt, otherwise 000
         //left and right triggers (velocity)
-        if(velocity >= 0) {
-            message += String.format("%03d", Math.abs(velocity));
-            message += "000";
+        if(mode == Mode.zerodegree) {
+            if (velocity >= 0) {
+                message += String.format("%03d", Math.abs(velocity));
+                message += "000";
+            } else {
+                message += "000";
+                message += String.format("%03d", Math.abs(velocity));
+            }
         } else {
-            message += "000";
-            message += String.format("%03d", Math.abs(velocity));
+            message += "000000";
         }
-        //y and x joystick positioning
-        message += "1100";
+        //y position (velocity)
+        if(velocity > 0) {
+            message += "1";
+        } else {
+            message += "0";
+        }
+        message += String.format("%03d", Math.abs(velocity));
+
+        //x position (rotation)
         if(rotation > 0) {
             message += "1";
         } else {

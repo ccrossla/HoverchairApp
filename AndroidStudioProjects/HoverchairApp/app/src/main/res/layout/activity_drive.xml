@@ -59,6 +59,8 @@
                 android:text="ToggleButton"
                 android:textColor="@color/csTextColor"
                 android:textSize="16dp"
+                android:checked="true"
+
                 />
 
             <TextView
@@ -87,7 +89,9 @@
                     android:buttonTint="@color/csTextColor"
                     android:text="DC"
                     android:textSize="16dp"
-                    android:textColor="@color/csTextColor" />
+                    android:textColor="@color/csTextColor"
+                    android:checked="true"
+                    />
 
                 <RadioButton
                     android:id="@+id/radioSelfBalance"

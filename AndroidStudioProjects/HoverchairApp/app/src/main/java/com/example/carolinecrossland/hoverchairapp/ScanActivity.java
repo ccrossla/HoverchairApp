@@ -1,8 +1,10 @@
 package com.example.carolinecrossland.hoverchairapp;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.design.widget.NavigationView;
@@ -10,11 +12,16 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.bluetooth.*;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -37,11 +44,18 @@ public class ScanActivity extends AppCompatActivity {
 
     NavigationView navigationView;
 
+    ProgressBar btSpinner;
+    TextView btStatus;
+
+    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         bluetooth = MyApp.app().bluetooth();
+        btSpinner = findViewById(R.id.btSpinner);
+        btStatus = findViewById(R.id.activity_scan_connected_text);
 
         final List<BluetoothDevice> devices = bluetooth.getPairedDevices();
 
@@ -56,27 +70,14 @@ public class ScanActivity extends AppCompatActivity {
             pairedListItems.add(hashMap);
         }
         //Set up list view
-        ListView pairedListView = findViewById(R.id.activity_scan_paired_list);
+        final ListView pairedListView = findViewById(R.id.activity_scan_paired_list);
         String[] from={"idNum","deviceName"};
         int[] to={R.id.deviceName,R.id.deviceName};
 
+        final SimpleAdapter adapter = new SimpleAdapter(this, pairedListItems, R.layout.list_view, from, to) {
 
-        SimpleAdapter adapter = new SimpleAdapter(this, pairedListItems, R.layout.list_view, from, to) {
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent){
-//                // Get the Item from ListView
-//                View view = super.getView(position, convertView, parent);
-//
-//                // Initialize a TextView for ListView each Item
-//                TextView tv = (TextView) view.findViewById(android.R.id.text1);
-//
-//                // Set the text color of TextView (ListView Item)
-//                tv.setTextColor(getResources().getColor(R.color.csTextColor));
-//
-//                // Generate ListView Item using TextView
-//                return view;
-//            }
         };
+
         pairedListView.setAdapter(adapter);
 
         //perform listView item click event
@@ -84,6 +85,7 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("DEVICE NAME: " + pairedListItems.get(i).get("deviceName"));
+                position = i;
                 device = devices.get(i);
                 startBluetoothService();
             }
@@ -111,7 +113,15 @@ public class ScanActivity extends AppCompatActivity {
             BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
-            connectToDevice();
+            btSpinner.setVisibility(View.VISIBLE);
+            btStatus.setText("Connecting");
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    connectToDevice();
+                }
+
+            }).start();
         }
 
         @Override
@@ -127,9 +137,22 @@ public class ScanActivity extends AppCompatActivity {
 
     }
 
-    private void connectToDevice() {
+    private synchronized void connectToDevice() {
         mService.bindBluetooth(bluetooth, device, this);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                btSpinner.setVisibility(View.INVISIBLE);
+                if(bluetooth.isConnected()) {
+                    btStatus.setText("Connected to " + device);
+                } else {
+                    btStatus.setText("Not Connected");
+                }
+            }
+        });
     }
+
+
 
 
     @Override
