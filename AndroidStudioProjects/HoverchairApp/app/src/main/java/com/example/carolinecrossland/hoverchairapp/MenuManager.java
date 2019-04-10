@@ -18,6 +18,10 @@ public class MenuManager {
                 break;
             case R.id.notifications:
                 intent = new Intent(activity, Notification.class);
+                break;
+            case R.id.logout:
+                intent = new Intent(activity, Login.class);
+                break;
             default:
                 break;
         }

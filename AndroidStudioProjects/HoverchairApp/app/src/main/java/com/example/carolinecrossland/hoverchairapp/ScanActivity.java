@@ -80,14 +80,24 @@ public class ScanActivity extends AppCompatActivity {
 
         pairedListView.setAdapter(adapter);
 
+        //bind to background bluetoothService
+        startBluetoothService();
+
         //perform listView item click event
         pairedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("DEVICE NAME: " + pairedListItems.get(i).get("deviceName"));
                 position = i;
                 device = devices.get(i);
-                startBluetoothService();
+                btSpinner.setVisibility(View.VISIBLE);
+                btStatus.setText("Connecting");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        connectToDevice();
+                    }
+
+                }).start();
             }
         });
 
@@ -113,15 +123,6 @@ public class ScanActivity extends AppCompatActivity {
             BluetoothService.LocalBinder binder = (BluetoothService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
-            btSpinner.setVisibility(View.VISIBLE);
-            btStatus.setText("Connecting");
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    connectToDevice();
-                }
-
-            }).start();
         }
 
         @Override
@@ -138,12 +139,12 @@ public class ScanActivity extends AppCompatActivity {
     }
 
     private synchronized void connectToDevice() {
-        mService.bindBluetooth(bluetooth, device, this);
+        final boolean result = mService.bindBluetooth(bluetooth, device, this);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 btSpinner.setVisibility(View.INVISIBLE);
-                if(bluetooth.isConnected()) {
+                if(result) {
                     btStatus.setText("Connected to " + device);
                 } else {
                     btStatus.setText("Not Connected");

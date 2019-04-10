@@ -20,4 +20,11 @@
         <item name="android:textColor">@color/csTextColor</item>
     </style>
 
+    <style name="CustomButton" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/csTextColor</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:buttonCornerRadius">0dp</item>
+    </style>
+
 </resources>

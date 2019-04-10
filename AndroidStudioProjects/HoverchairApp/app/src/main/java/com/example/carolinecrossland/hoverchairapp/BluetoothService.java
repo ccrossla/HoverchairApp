@@ -45,12 +45,17 @@ public class BluetoothService extends Service {
         bluetooth.connectToDevice(device);
         bluetooth.setDeviceCallback(communicationCallback);
 
-        try {
-            sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for(int i = 0; i < 10; i++) {
+            if(!bluetooth.isConnected()) {
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                break;
+            }
         }
-
         return bluetooth.isConnected();
     }
 
