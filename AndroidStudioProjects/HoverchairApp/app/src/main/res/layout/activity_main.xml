@@ -52,8 +52,11 @@
         app:layout_constraintTop_toBottomOf="@+id/constraint_layout_cs"
         app:layout_constraintVertical_bias="0.0"
         app:tabIndicatorColor="@color/tabIndicatorColor"
+        app:tabBackground="@drawable/tab_color_selector"
         app:tabMode="fixed"
-        app:tabTextColor="@color/tabTextColor" />
+        app:tabTextColor="@color/csTextColor"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        />
 
 
     <android.support.v4.view.ViewPager

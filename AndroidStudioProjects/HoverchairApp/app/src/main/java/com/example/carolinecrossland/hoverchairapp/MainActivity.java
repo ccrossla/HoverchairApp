@@ -1,5 +1,6 @@
 package com.example.carolinecrossland.hoverchairapp;
 
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         //adapter setup
         viewpager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpager);
+        tablayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
     }
 
 
