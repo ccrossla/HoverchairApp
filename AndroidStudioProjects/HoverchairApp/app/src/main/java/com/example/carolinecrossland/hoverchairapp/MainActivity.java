@@ -175,13 +175,11 @@ public class MainActivity extends AppCompatActivity {
 
         //adding fragments
         adapter.addFragment(new FragmentCurrentTrip(), "Today");
-        adapter.addFragment(new FragmentPrevTrip(), "Previous");
         adapter.addFragment(new FragmentCumulativeTrip(), "Cumulative");
 
         //adapter setup
         viewpager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpager);
-        tablayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
     }
 
 

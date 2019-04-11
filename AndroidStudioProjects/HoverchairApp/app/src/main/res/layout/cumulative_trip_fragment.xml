@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/csTextColor"
-        android:text="cumulative trips fragment"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:layout_weight="4"
+        android:layout_gravity="top"
+        android:background="@color/colorPrimary">
 
-</android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/currDistanceTxt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Time: 7d 8h"
+            android:textAlignment="center"
+            android:textColor="@color/csTextColor"
+            />
+
+        <TextView
+            android:id="@+id/CurrAverageSpeedTxt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Average: 3.2 mph"
+            android:textAlignment="center"
+            android:textColor="@color/csTextColor"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/currTravelTimeTxt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Distance: 563.2 mi."
+            android:textAlignment="center"
+            android:textColor="@color/csTextColor"
+            />
+
+        <TextView
+            android:id="@+id/currMapTxt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/curr_view_map"
+            android:textAlignment="center"
+            android:textColor="@color/csTextColor"
+            />
+    </LinearLayout>
+
+</LinearLayout>
